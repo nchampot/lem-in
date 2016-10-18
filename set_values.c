@@ -1,6 +1,6 @@
 #include "lem_in.h"
 
-static int	get_index(char *name)
+int		get_index(char *name)
 {
 	int	i;
 
@@ -24,18 +24,17 @@ void	init_rooms_value(int curr_index, int value)
 	while (g_anthill[curr_index].doors[i])
 	{
 		next_index = get_index(g_anthill[curr_index].doors[i]);
-		if (g_anthill[next_index].value == -1)
+		if (g_anthill[next_index].value == -1 || (g_anthill[next_index].value > value + 1 &&\
+			g_anthill[next_index].status != END && g_anthill[next_index].status != START))
 			init_rooms_value(next_index, value + 1);
 		i++;
 	}
 }
 
-static int	move(int ant_index, int best_door)
+static int	move(int ant_index, int door_index)
 {
 	char	status;
-	int	door_index;
 
-	door_index = get_index(g_anthill[ant_index].doors[best_door]);
 	if (g_anthill[ant_index].status != START)
 	{
 		g_anthill[ant_index].status = FREE;
@@ -51,32 +50,25 @@ static int	move(int ant_index, int best_door)
 
 int	run(int ant_index)
 {
-	int	best_val;
 	int	door_index;
 	int	best_door;
 	int	i;
 	char	*door;
 
 	i = 0;
-	best_val = 100000;
+	best_door = -1;
 	while ((door = g_anthill[ant_index].doors[i]))
 	{
 		if ((door_index = get_index(door)) == 0)
 		{
-			best_door = i;
-			best_val = 666;
+			best_door = door_index;
 			break;
 		}
-		if (g_anthill[door_index].value != -1 &&\
-			g_anthill[door_index].value <= best_val &&\
-			g_anthill[door_index].status != START)
-		{
-			best_val = g_anthill[door_index].value;;
-			best_door = i;
-		}
+		if (compare_val(door_index, best_door))
+			best_door = door_index;
 		i++;
 	}
-	if (g_anthill[get_index(g_anthill[ant_index].doors[best_door])].status == OCCUPIED)
+	if (best_door != -1 && g_anthill[best_door].status == OCCUPIED)
 		return (ant_index);
-	return (best_val != 100000 ? move(ant_index, best_door) : ant_index);
+	return (best_door != -1 ? move(ant_index, best_door) : ant_index);
 }

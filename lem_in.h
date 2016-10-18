@@ -36,6 +36,9 @@ typedef struct	s_room
 t_room	*g_anthill;
 
 int	*init_ants(int nb_ants);
+int		get_index(char *name);
+int	compare_val(int door_index, int best_door);
+char	get_door_status(int ant_index, int best_door);
 void	preshow(char *filename, int nb_ants);
 int	get_nb_ants(char *filename);
 int	run(int ant_index);
