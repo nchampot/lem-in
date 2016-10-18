@@ -10,15 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int	main(int ac, char **av)
 {
-	t_room	start;
+	t_room	*anthill;
+	int	i;
+	int	j;
 
 	if (ac == 2)
-		start = read_file(av[1]);
-	path_finder();
-	anthill_team_crossing();
+		anthill = create_anthill(av[1]);
+	i = 0;
+	while (anthill[i].status != END)
+	{
+		ft_putstr(anthill[i].name);
+		ft_putstr(" : ");
+		j = 0;
+		while (anthill[i].doors[j])
+		{
+			ft_putstr(anthill[i].doors[j]);
+			ft_putstr(" ");
+			j++;
+		}
+		i++;
+		ft_putstr("\n");
+	} 
 	return (1);
 }

@@ -1,0 +1,15 @@
+##start
+coucou 1 2
+##end
+aurevoir 4 8
+mdr 2 1
+camarche 2 4
+XDDDDD 2 1
+MDDDDRRRRR 2 4
+LOOL 2 0
+coucou-camarche
+coucou-LOOL
+coucou-mdr
+camarche-XDDDDD
+XDDDDD-LOOL
+LOOL-aurevoir
