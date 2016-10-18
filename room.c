@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nchampot <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/12 15:47:48 by nchampot          #+#    #+#             */
-/*   Updated: 2016/10/12 16:07:22 by nchampot         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "lem_in.h"
 
 t_room	new_room(char *name, char status, char **all_links)
@@ -18,7 +6,8 @@ t_room	new_room(char *name, char status, char **all_links)
 
 	room.name = name;
 	room.status = status;
-	room.value = (status == END || status == START) ? 0 : -1;
+	room.value = status == END ? 0 : -1;
+	room.value = status == START ? 1000 : -1;
 	room.doors = get_room_doors(name, all_links);
 	return (room);
 }

@@ -12,28 +12,64 @@
 
 #include "lem_in.h"
 
-int	main(int ac, char **av)
-{
-	t_room	*anthill;
-	int	i;
-	int	j;
 
-	if (ac == 2)
-		anthill = create_anthill(av[1]);
-	i = 0;
-	while (anthill[i].status != END)
-	{
-		ft_putstr(anthill[i].name);
-		ft_putstr(" : ");
-		j = 0;
-		while (anthill[i].doors[j])
-		{
-			ft_putstr(anthill[i].doors[j]);
-			ft_putstr(" ");
-			j++;
-		}
-		i++;
-		ft_putstr("\n");
-	} 
+
+int		main(int ac, char **av)
+{
+	int	*ants;
+	int	nb_ants;
+
+	g_anthill = create_anthill(av[1]);
+	init_rooms_value(0, 0);
+	nb_ants = get_nb_ants(av[1]);
+	ants = init_ants(nb_ants);
+	preshow(av[1], nb_ants);
+	unleash_the_ants(ants, nb_ants);
 	return (1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/*ft_putstr(g_anthill[i].name);
+		ft_putstr(" : ");
+		ft_putnbr(g_anthill[i].value);
+		j = 0;
+		while (g_anthill[i].doors[j])
+		{
+			ft_putstr(g_anthill[i].doors[j]);
+			ft_putstr(" ");
+			j++;
+		}*/
+		//ft_putstr("\n");

@@ -1,15 +1,25 @@
+9
 ##start
-coucou 1 2
+1 23 3
+2 16 7
+#commentaire
+3 16 3
+4 16 5
+5 9 3
+6 1 5
+7 4 8
 ##end
-aurevoir 4 8
-mdr 2 1
-camarche 2 4
-XDDDDD 2 1
-MDDDDRRRRR 2 4
-LOOL 2 0
-coucou-camarche
-coucou-LOOL
-coucou-mdr
-camarche-XDDDDD
-XDDDDD-LOOL
-LOOL-aurevoir
+0 9 5
+0-4
+0-6
+1-3
+4-3
+5-2
+3-5
+#autre commentaire
+4-2
+2-1
+7-6
+7-2
+7-4
+6-5

@@ -39,7 +39,7 @@ static char	*get_end(char *filename)
 {
 	char	*buf;
 	char	**buff;
-	int	fd;
+	int		fd;
 	
 	fd = open(filename, O_RDONLY);
 	while (get_next_line(fd, &buf))
@@ -61,7 +61,7 @@ static char	**get_all_links(char *filename)
 {
 	char	*buf;
 	char	**links;
-	int	fd;
+	int		fd;
 
 	fd = open(filename, O_RDONLY);
 	links = malloc(sizeof(char *));
@@ -74,37 +74,37 @@ static char	**get_all_links(char *filename)
 	return (links);
 }
 
-int	count_rooms(char **all_rooms)
-{
-	int	len;
-
-	len = 0;
-	while (all_rooms[len])
-		len++;
-	return (len + 2);
-}
-
-t_room	*create_anthill(char *filename)
+t_room		*create_anthill(char *filename)
 {
 	t_room		*anthill;
 	char		**all_links;
 	char		**all_rooms;
 	char		*start;
 	char		*end;
-	int		i;
+	int			i;
 	
 	start = get_start(filename);
 	end = get_end(filename);
 	all_links = get_all_links(filename);
 	all_rooms = get_all_rooms(all_links, start, end);
 	anthill = (t_room *)malloc(sizeof(t_room) * count_rooms(all_rooms));
-	*anthill = new_room(start, START, all_links);
+	*anthill = new_room(end, END, all_links);
 	i = 0;
 	while (all_rooms[i])
 	{
 		anthill[i + 1] = new_room(all_rooms[i], FREE, all_links);
 		i++;
 	}
-	anthill[i + 1] = new_room(end, END, all_links);
+	anthill[i + 1] = new_room(start, START, all_links);
 	return (anthill);
 } 
+
+int			get_nb_ants(char *filename)
+{
+	char	*buf;
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	get_next_line(fd, &buf);
+	return (ft_atoi(buf));
+}

@@ -22,7 +22,6 @@
 # define OCCUPIED 'o'
 
 #include <stdlib.h>
-#include <unistd.h>
 #include "libft/inc/libft.h"
 #include "get_next_line.h"
 
@@ -34,10 +33,19 @@ typedef struct	s_room
 	int		value;
 }		t_room;
 
+t_room	*g_anthill;
+
+int	*init_ants(int nb_ants);
+void	preshow(char *filename, int nb_ants);
+int	get_nb_ants(char *filename);
+int	run(int ant_index);
+void	unleash_the_ants(int *ants, int nb_ants);
+void	init_rooms_value(int curr_index, int value);
 char	**get_room_doors(char *name, char **all_links);
 t_room	*create_anthill(char *filename);
 char	**get_all_rooms(char **all_links, char *start, char *end);
 void	exit_pgm(char *msg);
+int			count_rooms(char **all_rooms);
 t_room	new_room(char *name, char status, char **all_links);
 
 #endif
