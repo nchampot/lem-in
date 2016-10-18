@@ -4,7 +4,7 @@ OBJ = $(SRC:.c=.o)
 
 LIB = libft/
 
-NAME = lem_in
+NAME = lem-in
 
 CC = clang
 
