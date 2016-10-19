@@ -12,8 +12,6 @@
 
 #include "lem_in.h"
 
-
-
 int		main(int ac, char **av)
 {
 	int	*ants;
@@ -23,53 +21,7 @@ int		main(int ac, char **av)
 	init_rooms_value(0, 0);
 	nb_ants = get_nb_ants(av[1]);
 	ants = init_ants(nb_ants);
-	preshow(av[1], nb_ants);
+	preshow(av[1]);
 	unleash_the_ants(ants, nb_ants);
 	return (1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		/*ft_putstr(g_anthill[i].name);
-		ft_putstr(" : ");
-		ft_putnbr(g_anthill[i].value);
-		j = 0;
-		while (g_anthill[i].doors[j])
-		{
-			ft_putstr(g_anthill[i].doors[j]);
-			ft_putstr(" ");
-			j++;
-		}*/
-		//ft_putstr("\n");

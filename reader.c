@@ -13,80 +13,96 @@
 #include "lem_in.h"
 #include <fcntl.h>
 
-static char	*get_start(char *filename)
+static int		get_nb_line(char *filename)
 {
 	char	*buf;
 	char	**buff;
 	int	fd;
+	char	**lines;
 
 	fd = open(filename, O_RDONLY);
+	lines = malloc(sizeof(char*));
+	*lines = NULL;
 	while (get_next_line(fd, &buf))
 	{
-		if (ft_strcmp(buf, "##start") == 0)
+		if (buf[0] == '#')
+			ft_addstr(&lines, buf);
+		else if (is_int(buf))
+			ft_addstr(&lines, buf);
+		buff = ft_strsplit(buf, '-');
+		else if (buff[0] && buff[1] && !buff[2])
+			ft_addstr(&lines, buf);
+		free_2d(buff);
+		buff = ft_strsplit(buf, ' ');
+		else (buff[0] && buff[1] && buff[2] && !buff[3])
+			ft_addstr(&lines, buf);
+	}
+	return (lines);
+}
+
+static char	*get_start(char **lines)
+{
+	int	i;
+	char	*buff;
+
+	i = 0;
+	while (lines[i])
+	{
+		if (ft_strcmp(lines[i], "##start") == 0)
 		{
-			get_next_line(fd, &buf);
-			buff = ft_strsplit(buf, ' ');
+			buff = ft_strsplit(lines[i + 1], ' ');
 			if (!buff[0] || !buff[1] || !buff[2])
 				exit_pgm("ERROR: Wrong format passed to ##start (name coordx coordy)");
 			return (buff[0]);
 		}
+		i++;
 	}
 	exit_pgm("ERROR: The ##start is not defined");
 	return (0);
 }
 
-static char	*get_end(char *filename)
+static char	*get_end(char **lines)
 {
-	char	*buf;
 	char	**buff;
-	int		fd;
+	int		i;
 	
-	fd = open(filename, O_RDONLY);
-	while (get_next_line(fd, &buf))
+	i = 0;
+	while (lines[i])
 	{
-		if (ft_strcmp(buf, "##end") == 0)
+		if (ft_strcmp(lines[i], "##end") == 0)
 		{
-			get_next_line(fd, &buf);
-			buff = ft_strsplit(buf, ' ');
+			buff = ft_strsplit(lines[i + 1], ' ');
 			if (!buff[0] || !buff[1] || !buff[2])
 				exit_pgm("ERROR: Wrong format passed to ##end (name coordx coordy)");
 			return (buff[0]);
 		}
+		i++;
 	}
 	exit_pgm("ERROR: The ##end is not defined");
 	return (0);
 }
 
-static char	**get_all_links(char *filename)
+static char	**get_all_links(char **lines)
 {
-	char	*buf;
 	char	**links;
-	int		fd;
+	int	i;
 
-	fd = open(filename, O_RDONLY);
+	i = 0;
 	links = malloc(sizeof(char *));
 	*links = NULL;
-	while (get_next_line(fd, &buf))
+	while (lines[i])
 	{
-		if (ft_strchr(buf, '-'))
-			ft_addstr(&links, buf);
+		if (ft_strchr(lines[i], '-'))
+			ft_addstr(&links, lines[i]);
 	}
 	return (links);
 }
 
-t_room		*create_anthill(char *filename)
+static t_room	*create(char *start, char *end, char **all_links, char **all_rooms)
 {
 	t_room		*anthill;
-	char		**all_links;
-	char		**all_rooms;
-	char		*start;
-	char		*end;
 	int			i;
 	
-	start = get_start(filename);
-	end = get_end(filename);
-	all_links = get_all_links(filename);
-	all_rooms = get_all_rooms(all_links, start, end);
 	anthill = (t_room *)malloc(sizeof(t_room) * count_rooms(all_rooms));
 	*anthill = new_room(end, END, all_links);
 	i = 0;
@@ -99,12 +115,21 @@ t_room		*create_anthill(char *filename)
 	return (anthill);
 } 
 
-int			get_nb_ants(char *filename)
+t_room		*create_anthill(char *filename)
 {
-	char	*buf;
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	get_next_line(fd, &buf);
-	return (ft_atoi(buf));
+	char		**all_links;
+	char		**all_rooms;
+	char		*start;
+	char		*end;
+	char		**lines;
+	
+	lines = get_lines(filename);
+	start = get_start(lines);
+	end = get_end(lines);
+	all_links = get_all_links(lines);
+	all_rooms = get_all_rooms(all_links, start, end);
+	if (is_enough_data(start, end, all_links, all_rooms))
+		return (create(start, end, all_links, all_rooms));
+	else
+		exit_pgm("ERROR: Not enough data to build a decent anthill");
 }

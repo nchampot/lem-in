@@ -13,15 +13,16 @@
 #include "lem_in.h"
 #include <fcntl.h>
 
-int			count_rooms(char **all_rooms)
+int			get_nb_ants(char *filename)
 {
-	int	len;
+	char	*buf;
+	int	fd;
 
-	len = 0;
-	while (all_rooms[len])
-		len++;
-	return (len + 2);
+	fd = open(filename, O_RDONLY);
+	get_next_line(fd, &buf);
+	return (ft_atoi(buf));
 }
+
 int			*init_ants(int nb_ants)
 {
 	int	start_index;
@@ -39,7 +40,7 @@ int			*init_ants(int nb_ants)
 	return (ants);
 }
 
-void		preshow(char *filename, int nb_ants)
+void		preshow(char *filename)
 {
 	char	*buf;
 	int	fd;

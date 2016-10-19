@@ -9,6 +9,7 @@ t_room	new_room(char *name, char status, char **all_links)
 	room.value = status == END ? 0 : -1;
 	room.value = status == START ? 1000 : -1;
 	room.doors = get_room_doors(name, all_links);
+	room.waiting_ants = 0;
 	return (room);
 }
 

@@ -44,6 +44,8 @@ static int	move(int ant_index, int door_index)
 	{
 		g_anthill[door_index].status = OCCUPIED;
 		g_anthill[door_index].value++;
+		if (g_anthill[door_index].waiting_ants)
+			g_anthill[door_index].waiting_ants--;
 	}
 	return (door_index);
 }
@@ -69,6 +71,9 @@ int	run(int ant_index)
 		i++;
 	}
 	if (best_door != -1 && g_anthill[best_door].status == OCCUPIED)
+	{
+		g_anthill[best_door].waiting_ants++;
 		return (ant_index);
+	}
 	return (best_door != -1 ? move(ant_index, best_door) : ant_index);
 }
