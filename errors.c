@@ -6,6 +6,30 @@ void	exit_pgm(char *msg)
 	exit(0);
 }
 
+void	free_2d(char **stuff)
+{
+	int		i;
+
+	i = -1;
+	while (stuff[++i])
+		free(stuff[i]);
+	free(stuff);
+}
+
+int	is_enough_data(char *start, char *end, char **all_links, char **all_rooms)
+{
+	int	len;
+
+	if (!start || !end || !all_links || !all_rooms)
+		return (0);
+	len = 0;
+	while (all_rooms[len])
+		len++;
+	if (len < 2)
+		return (0); 
+	return (1);
+}
+
 int	compare_val(int tmp_door, int best_door)
 {
 	char	status;
@@ -14,7 +38,7 @@ int	compare_val(int tmp_door, int best_door)
 	int		best_val;
 
 	status = g_anthill[tmp_door].status;
-	value = g_anthill[tmp_door].value;
+	value = g_anthill[tmp_door].value + g_anthill[tmp_door].waiting_ants;
 	if (best_door != -1)
 	{
 		best_val = g_anthill[best_door].value + g_anthill[best_door].waiting_ants;
@@ -35,12 +59,18 @@ int	compare_val(int tmp_door, int best_door)
 	return (0);
 }
 
-int			count_rooms(char **all_rooms)
+int	is_int(char *str)
 {
-	int	len;
+	int	i;
 
-	len = 0;
-	while (all_rooms[len])
-		len++;
-	return (len + 2);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	if (ft_atoi(str))
+		return (1);
+	return (0);
 }

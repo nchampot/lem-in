@@ -40,19 +40,6 @@ int			*init_ants(int nb_ants)
 	return (ants);
 }
 
-void		preshow(char *filename)
-{
-	char	*buf;
-	int	fd;
-	int	ret;
-
-	buf = malloc(30000);
-	fd = open(filename, O_RDONLY);
-	ret = read(fd, buf, 30000);
-	buf[ret] = '\0';
-	ft_putendl(buf);
-}
-
 static void	show_the_move(int ant, char *door)
 {
 	ft_putchar('L');

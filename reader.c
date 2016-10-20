@@ -13,10 +13,11 @@
 #include "lem_in.h"
 #include <fcntl.h>
 
-static int		get_nb_line(char *filename)
+static char		**get_lines(char *filename)
 {
 	char	*buf;
 	char	**buff;
+	char	**bufff;
 	int	fd;
 	char	**lines;
 
@@ -25,17 +26,18 @@ static int		get_nb_line(char *filename)
 	*lines = NULL;
 	while (get_next_line(fd, &buf))
 	{
+		buff = ft_strsplit(buf, '-');
+		bufff = ft_strsplit(buf, ' ');
 		if (buf[0] == '#')
 			ft_addstr(&lines, buf);
 		else if (is_int(buf))
 			ft_addstr(&lines, buf);
-		buff = ft_strsplit(buf, '-');
 		else if (buff[0] && buff[1] && !buff[2])
 			ft_addstr(&lines, buf);
-		free_2d(buff);
-		buff = ft_strsplit(buf, ' ');
-		else (buff[0] && buff[1] && buff[2] && !buff[3])
+		else if (bufff[0] && bufff[1] && bufff[2] && !bufff[3])
 			ft_addstr(&lines, buf);
+		free_2d(buff);
+		free_2d(bufff);
 	}
 	return (lines);
 }
@@ -43,7 +45,7 @@ static int		get_nb_line(char *filename)
 static char	*get_start(char **lines)
 {
 	int	i;
-	char	*buff;
+	char	**buff;
 
 	i = 0;
 	while (lines[i])
@@ -94,6 +96,7 @@ static char	**get_all_links(char **lines)
 	{
 		if (ft_strchr(lines[i], '-'))
 			ft_addstr(&links, lines[i]);
+		i++;
 	}
 	return (links);
 }
@@ -130,6 +133,6 @@ t_room		*create_anthill(char *filename)
 	all_rooms = get_all_rooms(all_links, start, end);
 	if (is_enough_data(start, end, all_links, all_rooms))
 		return (create(start, end, all_links, all_rooms));
-	else
-		exit_pgm("ERROR: Not enough data to build a decent anthill");
+	exit_pgm("ERROR: Not enough data to build a decent anthill");
+	return (NULL);
 }

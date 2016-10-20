@@ -36,6 +36,9 @@ typedef struct	s_room
 
 t_room	*g_anthill;
 
+int	is_int(char *str);
+int	is_enough_data(char *start, char *end, char **all_links, char **all_rooms);
+void	free_2d(char **stuff);
 int	*init_ants(int nb_ants);
 int		get_index(char *name);
 int	compare_val(int curr_door, int best_door);
