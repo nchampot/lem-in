@@ -11,17 +11,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <fcntl.h>
-
-int			get_nb_ants(char *filename)
-{
-	char	*buf;
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	get_next_line(fd, &buf);
-	return (ft_atoi(buf));
-}
 
 int			*init_ants(int nb_ants)
 {

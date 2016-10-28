@@ -18,15 +18,8 @@ void	free_2d(char **stuff)
 
 int	is_enough_data(char *start, char *end, char **all_links, char **all_rooms)
 {
-	int	len;
-
 	if (!start || !end || !all_links || !all_rooms)
 		return (0);
-	len = 0;
-	while (all_rooms[len])
-		len++;
-	if (len < 2)
-		return (0); 
 	return (1);
 }
 
@@ -64,13 +57,15 @@ int	is_int(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		i++;
 	}
-	if (ft_atoi(str))
-		return (1);
-	return (0);
+	if (i >= 10)
+		return (0);
+	return (1);
 }

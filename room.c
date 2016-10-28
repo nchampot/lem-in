@@ -66,7 +66,7 @@ static	int	is_not_in(char *name, char **doors, char *start, char *end)
 	return (1);
 }
 
-char	**get_all_rooms(char **all_links, char *start, char *end)
+char	**get_all_rooms(char **lines, char **all_links, char *start, char *end)
 {
 	char	**doors;
 	int	i;
@@ -78,9 +78,9 @@ char	**get_all_rooms(char **all_links, char *start, char *end)
 	while (all_links[i])
 	{
 		buf = ft_strsplit(all_links[i], '-');
-		if (is_not_in(buf[0], doors, start, end))
+		if (is_not_in(buf[0], doors, start, end) && is_declared(buf[0], lines))
 			ft_addstr(&doors, buf[0]);
-		if (is_not_in(buf[1], doors, start, end))
+		if (is_not_in(buf[1], doors, start, end) && is_declared(buf[1], lines))
 			ft_addstr(&doors, buf[1]);
 		i++;
 	}

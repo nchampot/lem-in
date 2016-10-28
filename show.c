@@ -1,17 +1,16 @@
 #include "lem_in.h"
-#include <fcntl.h>
 
-void		preshow(char *filename)
+void		preshow(char **lines)
 {
-	char	*buf;
-	int	fd;
-	int	ret;
+	int	i;
 
-	buf = malloc(30000);
-	fd = open(filename, O_RDONLY);
-	ret = read(fd, buf, 30000);
-	buf[ret] = '\0';
-	ft_putendl(buf);
+	i = 0;
+	while (lines[i])
+	{
+		ft_putendl(lines[i]);
+		i++;
+	}
+	ft_putchar('\n');
 }
 
 int			count_rooms(char **all_rooms)

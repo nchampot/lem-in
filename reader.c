@@ -13,7 +13,7 @@
 #include "lem_in.h"
 #include <fcntl.h>
 
-static char		**get_lines(char *filename)
+char		**get_data(char *filename)
 {
 	char	*buf;
 	char	**buff;
@@ -21,21 +21,28 @@ static char		**get_lines(char *filename)
 	int	fd;
 	char	**lines;
 
-	fd = open(filename, O_RDONLY);
+	fd = filename ? open(filename, O_RDONLY) : 0;
 	lines = malloc(sizeof(char*));
 	*lines = NULL;
-	while (get_next_line(fd, &buf))
+	get_next_line(fd, &buf);
+	if (is_int(buf))
+		ft_addstr(&lines, buf);
+	else
+		exit_pgm("ERROR: The number of ants is not valid or not defined (must be on the first line)");
+	while (get_next_line(fd, &buf) && *buf != '\0')
 	{
 		buff = ft_strsplit(buf, '-');
 		bufff = ft_strsplit(buf, ' ');
 		if (buf[0] == '#')
 			ft_addstr(&lines, buf);
-		else if (is_int(buf))
+		else if (buff[0] && buff[1] && buff[0][0] != 'L' && buff[0][0] != '#'\
+				&& buff[1][0] != 'L' && buff[1][0] != '#' && !buff[2])
 			ft_addstr(&lines, buf);
-		else if (buff[0] && buff[1] && !buff[2])
+		else if (bufff[0] && bufff[0][0] != 'L' && bufff[0][0] != '#'  && is_int(bufff[1])\
+					&& is_int(bufff[2]) && !bufff[3])
 			ft_addstr(&lines, buf);
-		else if (bufff[0] && bufff[1] && bufff[2] && !bufff[3])
-			ft_addstr(&lines, buf);
+		else
+			break;
 		free_2d(buff);
 		free_2d(bufff);
 	}
@@ -47,10 +54,10 @@ static char	*get_start(char **lines)
 	int	i;
 	char	**buff;
 
-	i = 0;
+	i = 1;
 	while (lines[i])
 	{
-		if (ft_strcmp(lines[i], "##start") == 0)
+		if (ft_strcmp(lines[i], "##start") == 0 && lines[i + 1])
 		{
 			buff = ft_strsplit(lines[i + 1], ' ');
 			if (!buff[0] || !buff[1] || !buff[2])
@@ -59,7 +66,7 @@ static char	*get_start(char **lines)
 		}
 		i++;
 	}
-	exit_pgm("ERROR: The ##start is not defined");
+	exit_pgm("ERROR: The ##start is not valid or not defined");
 	return (0);
 }
 
@@ -68,10 +75,10 @@ static char	*get_end(char **lines)
 	char	**buff;
 	int		i;
 	
-	i = 0;
+	i = 1;
 	while (lines[i])
 	{
-		if (ft_strcmp(lines[i], "##end") == 0)
+		if (ft_strcmp(lines[i], "##end") == 0 && lines[i + 1])
 		{
 			buff = ft_strsplit(lines[i + 1], ' ');
 			if (!buff[0] || !buff[1] || !buff[2])
@@ -80,7 +87,7 @@ static char	*get_end(char **lines)
 		}
 		i++;
 	}
-	exit_pgm("ERROR: The ##end is not defined");
+	exit_pgm("ERROR: The ##end is not valied or not defined");
 	return (0);
 }
 
@@ -89,7 +96,7 @@ static char	**get_all_links(char **lines)
 	char	**links;
 	int	i;
 
-	i = 0;
+	i = 1;
 	links = malloc(sizeof(char *));
 	*links = NULL;
 	while (lines[i])
@@ -118,19 +125,17 @@ static t_room	*create(char *start, char *end, char **all_links, char **all_rooms
 	return (anthill);
 } 
 
-t_room		*create_anthill(char *filename)
+t_room		*create_anthill(char **lines)
 {
 	char		**all_links;
 	char		**all_rooms;
 	char		*start;
 	char		*end;
-	char		**lines;
 	
-	lines = get_lines(filename);
 	start = get_start(lines);
 	end = get_end(lines);
 	all_links = get_all_links(lines);
-	all_rooms = get_all_rooms(all_links, start, end);
+	all_rooms = get_all_rooms(lines, all_links, start, end);
 	if (is_enough_data(start, end, all_links, all_rooms))
 		return (create(start, end, all_links, all_rooms));
 	exit_pgm("ERROR: Not enough data to build a decent anthill");

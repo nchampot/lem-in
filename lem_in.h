@@ -20,6 +20,13 @@
 # define END 'e'
 # define FREE 'f'
 # define OCCUPIED 'o'
+/*
+** COLORS
+*/
+# define START 's'
+# define END 'e'
+# define FREE 'f'
+# define OCCUPIED 'o'
 
 #include <stdlib.h>
 #include "libft/inc/libft.h"
@@ -36,20 +43,22 @@ typedef struct	s_room
 
 t_room	*g_anthill;
 
+char	**get_data(char *filename);
+int	is_declared(char *room, char **lines);
 int	is_int(char *str);
+int	check(void);
 int	is_enough_data(char *start, char *end, char **all_links, char **all_rooms);
 void	free_2d(char **stuff);
 int	*init_ants(int nb_ants);
 int		get_index(char *name);
 int	compare_val(int curr_door, int best_door);
-void	preshow(char *filename);
-int	get_nb_ants(char *filename);
+void	preshow(char **lines);
 int	run(int ant_index);
 void	unleash_the_ants(int *ants, int nb_ants);
 void	init_rooms_value(int curr_index, int value);
 char	**get_room_doors(char *name, char **all_links);
-t_room	*create_anthill(char *filename);
-char	**get_all_rooms(char **all_links, char *start, char *end);
+t_room	*create_anthill(char **filename);
+char	**get_all_rooms(char **lines, char **all_links, char *start, char *end);
 void	exit_pgm(char *msg);
 int			count_rooms(char **all_rooms);
 t_room	new_room(char *name, char status, char **all_links);

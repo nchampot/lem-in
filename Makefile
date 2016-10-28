@@ -1,4 +1,4 @@
-SRC = main.c errors.c reader.c ants.c get_next_line.c set_values.c room.c show.c
+SRC = main.c errors.c reader.c ants.c get_next_line.c set_values.c room.c show.c check.c
 
 OBJ = $(SRC:.c=.o)
 
