@@ -19,12 +19,24 @@
 # include "libft_ctypes.h"
 
 /*
-**	io/
+**		Colors
+*/
+#define	RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define WHT   "\x1B[37m"
+#define RESET "\x1B[0m"
+
+/*
 **		Input/output functions.
 */
 int				ft_putchar(int c);
 int				ft_putchar_fd(int c, int fd);
 int				ft_putendl(char const *s);
+int				ft_putendl_color(char const *s, char const *c);
 int				ft_putendl_fd(char const *s, int fd);
 int				ft_putnbr(int n);
 int				ft_putnbr_fd(int n, int fd);

@@ -67,5 +67,7 @@ int	is_int(char *str)
 	}
 	if (i >= 10)
 		return (0);
+	if (i == 1 && *str == '0')
+		return (0);
 	return (1);
 }

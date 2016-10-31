@@ -7,7 +7,14 @@ void		preshow(char **lines)
 	i = 0;
 	while (lines[i])
 	{
-		ft_putendl(lines[i]);
+		if (lines[i][0] == '#' && lines[i][1] != '#')
+			ft_putendl_color(lines[i], CYN);
+		else if (ft_strcmp(lines[i], "##start") == 0)
+			ft_putendl_color(lines[i], GRN);
+		else if (ft_strcmp(lines[i], "##end") == 0)
+			ft_putendl_color(lines[i], RED);
+		else
+			ft_putendl(lines[i]);
 		i++;
 	}
 	ft_putchar('\n');
