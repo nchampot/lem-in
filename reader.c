@@ -6,7 +6,7 @@
 /*   By: nchampot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/12 15:47:48 by nchampot          #+#    #+#             */
-/*   Updated: 2016/10/12 16:07:22 by nchampot         ###   ########.fr       */
+/*   Updated: 2016/11/04 17:01:36 by nchampot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 char		**get_data(char *filename)
 {
 	char	*buf;
-	char	**buff;
-	char	**bufff;
 	int	fd;
 	char	**lines;
 
@@ -25,26 +23,15 @@ char		**get_data(char *filename)
 	lines = malloc(sizeof(char*));
 	*lines = NULL;
 	get_next_line(fd, &buf);
-	if (is_int(buf))
+	if (is_int(buf) == 1)
 		ft_addstr(&lines, buf);
 	else
 		exit_pgm("ERROR: The number of ants is not valid or not defined (must be on the first line)");
 	while (get_next_line(fd, &buf) && *buf != '\0')
 	{
-		buff = ft_strsplit(buf, '-');
-		bufff = ft_strsplit(buf, ' ');
-		if (buf[0] == '#')
-			ft_addstr(&lines, buf);
-		else if (buff[0] && buff[1] && buff[0][0] != 'L' && buff[0][0] != '#'\
-				&& buff[1][0] != 'L' && buff[1][0] != '#' && !buff[2])
-			ft_addstr(&lines, buf);
-		else if (bufff[0] && bufff[0][0] != 'L' && bufff[0][0] != '#'  && is_int(bufff[1])\
-					&& is_int(bufff[2]) && !bufff[3])
-			ft_addstr(&lines, buf);
-		else
+		if (!is_valid(buf))
 			break;
-		free_2d(buff);
-		free_2d(bufff);
+		ft_addstr(&lines, buf);
 	}
 	return (lines);
 }

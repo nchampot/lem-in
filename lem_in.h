@@ -6,7 +6,7 @@
 /*   By: nchampot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/12 15:33:44 by nchampot          #+#    #+#             */
-/*   Updated: 2016/10/12 16:07:21 by nchampot         ###   ########.fr       */
+/*   Updated: 2016/11/04 16:22:17 by nchampot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_room
 
 t_room	*g_anthill;
 
+int	is_valid(char *line);
 char	**get_data(char *filename);
 int	is_declared(char *room, char **lines);
 int	is_int(char *str);

@@ -58,15 +58,15 @@ int	is_int(char *str)
 
 	i = 0;
 	if (!str)
-		return (0);
+		return (-1);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-			return (0);
+			return (-1);
 		i++;
 	}
 	if (i >= 10)
-		return (0);
+		return (-1);
 	if (i == 1 && *str == '0')
 		return (0);
 	return (1);
