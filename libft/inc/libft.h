@@ -6,7 +6,7 @@
 /*   By: dtortera <dtortera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:14:02 by dtortera          #+#    #+#             */
-/*   Updated: 2015/02/16 16:42:56 by dtortera         ###   ########.fr       */
+/*   Updated: 2016/11/11 16:03:09 by nchampot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 /*
 **		Colors
 */
-#define	RED   "\x1B[31m"
-#define GRN   "\x1B[32m"
-#define YEL   "\x1B[33m"
-#define BLU   "\x1B[34m"
-#define MAG   "\x1B[35m"
-#define CYN   "\x1B[36m"
-#define WHT   "\x1B[37m"
-#define RESET "\x1B[0m"
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define YEL   "\x1B[33m"
+# define BLU   "\x1B[34m"
+# define MAG   "\x1B[35m"
+# define CYN   "\x1B[36m"
+# define WHT   "\x1B[37m"
+# define RESET "\x1B[0m"
 
 /*
 **		Input/output functions.
@@ -116,6 +116,6 @@ char			*ft_strstr(const char *s1, const char *s2);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
 char			**ft_addstr(char ***tab, const char *s);
-char			*ft_addchr(char **pString, const char c);
+char			*ft_addchr(char **pstring, const char c);
 
 #endif

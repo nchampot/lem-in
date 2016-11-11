@@ -6,7 +6,7 @@
 /*   By: nchampot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/12 15:32:32 by nchampot          #+#    #+#             */
-/*   Updated: 2016/10/12 16:07:24 by nchampot         ###   ########.fr       */
+/*   Updated: 2016/11/11 15:07:00 by nchampot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		main(int ac, char **av)
 {
-	int	*ants;
-	int	nb_ants;
+	int		*ants;
+	int		nb_ants;
 	char	**data;
 
 	data = get_data(av[1]);

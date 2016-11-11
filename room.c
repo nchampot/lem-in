@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   room.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nchampot <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/11/11 15:14:18 by nchampot          #+#    #+#             */
+/*   Updated: 2016/11/11 15:16:13 by nchampot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-t_room	new_room(char *name, char status, char **all_links)
+t_room		new_room(char *name, char status, char **all_links)
 {
 	t_room	room;
 
@@ -27,11 +39,11 @@ static char	*get_link(char *name, char *link)
 	return (NULL);
 }
 
-char	**get_room_doors(char *name, char **all_links)
+char		**get_room_doors(char *name, char **all_links)
 {
 	char	**doors;
 	char	*buf;
-	int	i;
+	int		i;
 
 	doors = malloc(sizeof(char*));
 	*doors = NULL;
@@ -46,9 +58,9 @@ char	**get_room_doors(char *name, char **all_links)
 		i++;
 	}
 	return (doors);
-}	
+}
 
-static	int	is_not_in(char *name, char **doors, char *start, char *end)
+static int	is_not_in(char *name, char **doors, char *start, char *end)
 {
 	int	i;
 
@@ -66,10 +78,11 @@ static	int	is_not_in(char *name, char **doors, char *start, char *end)
 	return (1);
 }
 
-char	**get_all_rooms(char **lines, char **all_links, char *start, char *end)
+char		**get_all_rooms(char **lines, char **all_links,\
+		char *start, char *end)
 {
 	char	**doors;
-	int	i;
+	int		i;
 	char	**buf;
 
 	doors = malloc(sizeof(char*));
